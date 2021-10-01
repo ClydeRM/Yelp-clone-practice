@@ -1,5 +1,5 @@
 # dotenv
-server/.env
+server/config.env
 #node modules
 node_modules
 #DB config
