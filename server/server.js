@@ -119,7 +119,7 @@ app.delete("/api/v1/restaurants/:id",async (req, res) => {
 });
 
 // Listening PORT
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.listen(
     PORT,
