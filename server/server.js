@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const db = require("./db");
 const dotenv = require("dotenv");
 const morgan = require('morgan');
@@ -11,6 +12,7 @@ dotenv.config({ path: "config.env" });
 
 // Logger request
 app.use(morgan("dev"));
+app.use(cors());
 app.use(express.json());
 
 // @desc Get all restaurants data
