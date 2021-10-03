@@ -19,7 +19,7 @@ app.use(express.json());
 // @route GET /api/v1/restaurants
 app.get("/api/v1/restaurants", async (req, res) => {
     try {
-        const results = await db.query("SELECT * FROM restaurants");
+        const results = await db.query("SELECT * FROM restaurants ORDER BY id");
         // console.log(results);
         res.status(200).json({
             status: "success",
@@ -90,7 +90,7 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
             [req.body.name, req.body.location, req.body.price_range, req.params.id]
         );
         // console.log(results);
-        res.status(201).json({
+        res.status(200).json({
             status: "success",
             data: {
                 restaurant: results.rows[0],
