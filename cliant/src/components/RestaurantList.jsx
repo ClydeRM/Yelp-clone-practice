@@ -19,7 +19,9 @@ const RestaurantList = (props) => {
     getRestaurants();
   }, []); // 3.25.00
 
-  const handleDelete = async (id) => {
+  // 順序性 事件由小範圍傳至大範圍 stopPropagation() 可防止事件觸發當下範圍外的物件
+  const handleDelete = async (e, id) => {
+    e.stopPropagation(); // for prevent click btn to alert router to do table route
     try {
       const response = await RestaurantFinder.delete(`/${id}`);
       // console.log(response);
@@ -32,9 +34,16 @@ const RestaurantList = (props) => {
       console.error(error);
     }
   };
-
-  const handleUpdate = async (id) => {
+  
+  // 順序性 事件由小範圍傳至大範圍 stopPropagation() 可防止事件觸發當下範圍外的物件
+  const handleUpdate = async (e, id) => {
+    e.stopPropagation(); // for prevent click btn to alert router to do table route
     history.push(`/restaurants/${id}/update`);
+  };
+
+  // 順序性 事件由小範圍傳至大範圍
+  const handleRestaurantSelect = (id) => {
+    history.push(`/restaurants/${id}`); // redirect to  detail page
   };
 
   return (
@@ -54,14 +63,17 @@ const RestaurantList = (props) => {
           {restaurants &&
             restaurants.map((restaurant) => {
               return (
-                <tr key={restaurant.id}>
+                <tr
+                  onClick={() => handleRestaurantSelect(restaurant.id)}
+                  key={restaurant.id}
+                >
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
                   <td>review</td>
                   <td>
                     <button
-                      onClick={() => handleUpdate(restaurant.id)}
+                      onClick={(e) => handleUpdate(e, restaurant.id)}
                       className="btn btn-warning"
                     >
                       Update
@@ -69,7 +81,7 @@ const RestaurantList = (props) => {
                   </td>
                   <td>
                     <button
-                      onClick={() => handleDelete(restaurant.id)}
+                      onClick={(e) => handleDelete(e, restaurant.id)}
                       className="btn btn-danger"
                     >
                       Delete
