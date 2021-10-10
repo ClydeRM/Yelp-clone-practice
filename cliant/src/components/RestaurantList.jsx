@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantsContext } from "../context/RestaurantsContext";
+import StartRating from "./StartRating";
 
 const RestaurantList = (props) => {
   const { restaurants, setRestaurants } = useContext(RestaurantsContext);
@@ -34,7 +35,7 @@ const RestaurantList = (props) => {
       console.error(error);
     }
   };
-  
+
   // 順序性 事件由小範圍傳至大範圍 stopPropagation() 可防止事件觸發當下範圍外的物件
   const handleUpdate = async (e, id) => {
     e.stopPropagation(); // for prevent click btn to alert router to do table route
@@ -44,6 +45,19 @@ const RestaurantList = (props) => {
   // 順序性 事件由小範圍傳至大範圍
   const handleRestaurantSelect = (id) => {
     history.push(`/restaurants/${id}`); // redirect to  detail page
+  };
+
+  const renderRating = (restaurant) => {
+
+    if (!restaurant.count){
+      return <span className="text-warning">0 reviews</span>
+    }
+    return (
+      <>
+        <StartRating rating={restaurant.average_rating} />
+        <span className="text-warning ml-1">({restaurant.count})</span>
+      </>
+    );
   };
 
   return (
@@ -70,7 +84,7 @@ const RestaurantList = (props) => {
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
-                  <td>review</td>
+                  <td>{renderRating(restaurant)}</td>
                   <td>
                     <button
                       onClick={(e) => handleUpdate(e, restaurant.id)}
