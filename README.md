@@ -1,5 +1,8 @@
 # PERN Stack Yelp clone practice
 
+## Github
+[Yelp clone practice](https://github.com/ClydeRM/Yelp-clone-practice)
+
 ##    SSR vs CSR
 [參考](https://growingdna.com/ssr-versus-csr/)
 
@@ -60,7 +63,7 @@ SQL 指令 要以 ";" 結尾
 
 ```
 psql -U postgres 進入資料庫 預設使用者
-pwd : MACPWD
+pwd : *********
 
 --command help list:  \?
 
@@ -328,6 +331,24 @@ rafce+tab =
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 ```
 
+##    Component 
+
+* {< component />} 可以為tag寫邏輯
+* const Component({props....}) = >{
+         return < attribute....> </>
+}
+```
+const component = ({ color, text, onClick }) => {
+    return <button
+        onClick={onClick}
+        style={{ background: color }}
+        className='btn' >
+        {text}
+    </button>
+}
+```
+
+
 ##    React Hook 介紹
 
 [Hook APi ref](https://zh-hant.reactjs.org/docs/hooks-reference.html) 
@@ -579,7 +600,21 @@ const TestComponent = () => {
 
 export default TestComponent;
 ```
+##    專案發佈
+* build folder 才是我們真正發佈的網站檔案
+* Google React plugin Icon 紅色 未建置 藍色 已建置
+```
+npm run build >> build folder 
 
+
+// serve 套件是一個小型的伺服器 用來測試build專案
+sudo npm i -g serve
+
+
+// 在 http://localhost:8000 上
+serve -s build -p 8000 
+
+```
 
 
 ##    Context && props
